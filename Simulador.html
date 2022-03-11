@@ -9,10 +9,10 @@
 <body>
     Informe seu nome: <input id="nome"; placeholder="Digite seu nome!">.<br>
     Quantas sacas você produz usando toda área do seu plantio? :<input id="sacas_hectares"> (Usando 100% do terreno).<br>
-    Cotação da soja na sua cidade, safra retrasada: <input id="cotação_passada"> (Cada saca com 60Kg).<br>
-    Quantas sacas você produziu na safra retrasada? :<input id="sacas"> (Cada saca com 60Kg).<br>
-    Cotação da soja na sua cidade, safra passada: <input id="cotação"> (Cada saca com 60Kg).<br>
-    Quantas sacas você produziu na safra passada? : <input id="atual">.
+    Cotação da soja na sua cidade, safra retrasada: <input id="cotação_retrasada"> (Cada saca com 60Kg).<br>
+    Quantas sacas você produziu na safra retrasada? :<input id="sacas_retrasada"> (Cada saca com 60Kg).<br>
+    Cotação da soja na sua cidade, safra passada: <input id="cotação_passada"> (Cada saca com 60Kg).<br>
+    Quantas sacas você produziu na safra passada? : <input id="sacas_passada">.
     <button onclick="resultado()">Resultado</button>
     <br>
     <br>
@@ -27,27 +27,30 @@
 
 <script>
     function resultado(){
-    var usuario = nome.value
-    var todo_hectar = Number(sacas_hectares.value)
+    // valores input
+    var usuario = nome.value // input nome
+    var todo_hectar = Number(sacas_hectares.value) // input 100% do plantio
+    var valor_retrasado = Number(cotação_retrasada.value)// input cotação retrasada (valor passado)
+    var retrasado = Number(sacas_retrasada.value)// input sacas retrasada (passado)
+    var valor_passado = Number(cotação_passada.value)// input cotação passada (valor_atual)
+    var passado = Number(sacas_passada.value) // input sacas passada (atuais)
 
-    var valor_passado = Number(cotação_passada.value)
-    var passado = Number(sacas.value)
+    // preço por saca passado e retrasado
+    var safra_retrasada = valor_retrasado * retrasado // valor por saca na safra retrasada (safra_passada)
+    var safra_passada = valor_passado * passado // valor por saca na safra passada ( safra_atual)
 
-    var valor_atual = Number(cotação.value)
-    var atuais = Number(atual.value) 
+    // perdas em R$ e %
+    var perda_economia = safra_retrasada - safra_passada // perda economica
+    var porcento = (perda_economia * 100) / safra_retrasada
 
-    var safra_passada = valor_passado * passado
-    var safra_atual = valor_atual * atuais
-    var perda_economia = safra_passada - safra_atual 
-    var porcento = (perda_economia * 100) / safra_passada
-
-    var perda_terreno = (atuais * 100) / todo_hectar
+    // perda comparando 100% do terreno cm o mais recente
+    var perda_terreno = (passado * 100) / todo_hectar
     var perda_terreno2 = 100 - perda_terreno 
 
     Informação.innerHTML = `Olá, ${usuario}!<br> 
-    Safra retrasada você fez R$${safra_passada}, com ${passado} sacas.<br> 
-    Safra passada você fez R$${safra_atual}, com ${atuais} sacas.<br>
+    Safra retrasada você fez R$${safra_retrasada}, com ${retrasado} sacas.<br> 
+    Safra passada você fez R$${safra_passada}, com ${passado} sacas.<br>
     Você teve uma perda na economia de R$${perda_economia}, ${porcento}%.<br>
-    Você teve um perda no terreno de ${perda_terreno2}%. `
+    Você deixou de utilizar ${perda_terreno2}% do terreno. `
     }
 </script>
