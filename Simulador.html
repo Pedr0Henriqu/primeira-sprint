@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador</title>
+</head>
+<body>
+    Informe seu nome: <input id="nome"; placeholder="Digite seu nome!">.<br>
+    Quantas sacas você produz usando toda área do seu plantio? :<input id="sacas_hectares"> (Usando 100% do terreno).<br>
+    Cotação da soja na sua cidade, safra retrasada: <input id="cotação_passada"> (Cada saca com 60Kg).<br>
+    Quantas sacas você produziu na safra retrasada? :<input id="sacas"> (Cada saca com 60Kg).<br>
+    Cotação da soja na sua cidade, safra passada: <input id="cotação"> (Cada saca com 60Kg).<br>
+    Quantas sacas você produziu na safra passada? : <input id="atual">.
+    <button onclick="resultado()">Resultado</button>
+    <br>
+    <br>
+    <div id="Informação">
+
+    </div>
+    <div id="grafico">
+    
+    </div>
+</body>
+</html>
+
+<script>
+    function resultado(){
+    var usuario = nome.value
+    var todo_hectar = Number(sacas_hectares.value)
+
+    var valor_passado = Number(cotação_passada.value)
+    var passado = Number(sacas.value)
+
+    var valor_atual = Number(cotação.value)
+    var atuais = Number(atual.value) 
+
+    var safra_passada = valor_passado * passado
+    var safra_atual = valor_atual * atuais
+    var perda_economia = safra_passada - safra_atual 
+    var porcento = (perda_economia * 100) / safra_passada
+
+    var perda_terreno = (atuais * 100) / todo_hectar
+    var perda_terreno2 = 100 - perda_terreno 
+
+    Informação.innerHTML = `Olá, ${usuario}!<br> 
+    Safra retrasada você fez R$${safra_passada}, com ${passado} sacas.<br> 
+    Safra passada você fez R$${safra_atual}, com ${atuais} sacas.<br>
+    Você teve uma perda na economia de R$${perda_economia}, ${porcento}%.<br>
+    Você teve um perda no terreno de ${perda_terreno2}%. `
+    }
+</script>
