@@ -46,15 +46,17 @@
     var perda_economia = safra_retrasada - safra_passada // perda economica
     var perda_economia_formatado = perda_economia.toLocaleString('pt-br' , {style: 'currency', currency: 'BRL'})// var de transformação da perda na economia, para moeda brasileira
     var porcento = (perda_economia * 100) / safra_retrasada
+    var porcento_formatado = porcento.toFixed(0) // arredondando valor
 
     // perda comparando 100% do terreno cm o mais recente
     var perda_terreno = (passado * 100) / todo_hectar
-    var perda_terreno2 = 100 - perda_terreno 
+    var perda_terreno2 = 100 - perda_terreno
+    var perda_terreno2_formatado = perda_terreno2.toFixed(0) // arredondando terreno
 
     Informação.innerHTML = `Olá, ${usuario}!<br> 
     Safra retrasada você fez ${safra_retrasada_formatado} (com ${retrasado} sacas).<br> 
     Safra passada você fez ${safra_passada_formatado} (com ${passado} sacas).<br>
-    Você teve uma perda na economia de ${perda_economia_formatado} (${porcento}%).<br>
-    Você deixou de utilizar ${perda_terreno2}% do terreno. `
+    Você teve uma perda na economia de ${perda_economia_formatado} (${porcento_formatado}%).<br>
+    Você deixou de utilizar ${perda_terreno2_formatado}% do terreno. `
     }
 </script>
