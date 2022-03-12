@@ -18,7 +18,7 @@ insert into cadastro (nome, email, cpf, cnpj, senha) values
 ('Alex Silva', 'alex.silva@sptech.school', '02835954766', null, 'alex083663777'),
 ('Guilherme Victorino', 'guilherme.santos@sptech.school', '17954677920', null, 'guivi123456'),
 ('Pedro Henrique', 'pedro.mendonca@sptech.school', '97670909871', null, 'pedrinho87534'),
-('AgroTech', 'agro_tech@gmail.com', null, '98357890645616', 'agro3767565'),
+('SojaTech', 'SOJATECH@gmail.com', null, '98357890645616', 'agro3767565'),
 ('AMBEV', 'ambev@gmail.com', null, '17890654899441', 'amb474653636');
 
 
@@ -29,7 +29,7 @@ create table proposta(
 idProposta int primary key auto_increment,
 HectaresPlantados int,
 UF char(2),
-ProdutividadeDaUltimaSafra int
+ProdutividadeDaUltimaSafra int -- para o estilo de negócio esta em porcentagem
 );
 
 insert into proposta (HectaresPlantados, UF, ProdutividadeDaUltimaSafra) values
@@ -45,8 +45,8 @@ insert into proposta (HectaresPlantados, UF, ProdutividadeDaUltimaSafra) values
     
     create table sensores(
     idSensores int primary key auto_increment,
-    SensorUmidade int,
-    SensorTemperatura int,
+    SensorUmidade int, -- para o estilo de negócio esta em porcentagem
+    SensorTemperatura int, -- para o estilo de negócio esta em Graus (°C)
     Data_Hora datetime
     );
     
@@ -55,3 +55,4 @@ insert into proposta (HectaresPlantados, UF, ProdutividadeDaUltimaSafra) values
         (40, 22, '2019-03-11 02:49:55'),
         (45, 25, '2020-11-27 11:22:12'),
         (47, 28, '2021-10-23 07:10:33');
+        
