@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1 style="color: rgb(52, 177, 52);">Cálculo de semeadura da soja</h1>
+
+    <b>Digite a quantidade de plantas/ha:</b><br><input style="margin-bottom: 5px;" id="input_qtd_plantas">
+    (Recomendação de 300 mil plantas por hectare)<br>
+    <b>Digite espaçamento das fileiras/ha em (cm):</b><br><input style="margin-bottom: 5px;" id="input_espaco">
+    (Recomendação de 40 cm, 45 cm e 50 cm) <br>
+    <b>Digite a porcentagem de produtividade/ha:</b><br><input style="margin-bottom: 5px;" id="input_porcentagem"><br>
+    <button style="margin-left: 45px;margin-top: 10px; margin-bottom: 10px;"
+        onclick="resultado()">resultado</button><br>
+    <div id="exibir"></div>
+</body>
+
+</html>
+
+<script>
+    function resultado() {
+        var plantas = Number(input_qtd_plantas.value)
+        var espacamento = Number(input_espaco.value)
+        var produtividade = Number(input_porcentagem.value) //O quanto ele colhe do valor total de plantas, em porcentagem.
+
+        var espacamento_em_cm = espacamento / 100
+        var plantas_metro_linear = plantas * espacamento_em_cm / 10000
+        var sementes_por_metro = plantas_metro_linear * 100 / produtividade
+        var semente_total = plantas * 100 / produtividade * 1.1 //calculo para descobrir quantas sementes será necessárias com essa taxa de 80% mais 10% por conta das pragas ou doenças
+        var sementes_necessarias = semente_total - plantas
+        var gramas = semente_total * 200 / 1000
+        var transformar_g_em_Kg = gramas / 1000
+        var vagens_por_hectare = plantas * 30
+        var sacas_por_hectare = vagens_por_hectare * 0.4024 / 1000 /60
+
+        exibir.innerHTML = `Com ${plantas.toLocaleString()} plantas/ha, e com espaçamento de ${espacamento} cm, seriam ${plantas_metro_linear.toFixed()} plantas/metro linear.<br>
+    Com ${produtividade}% de produtividade, deve distribuir ${sementes_por_metro.toFixed()} sementes/metro.<br>
+    Será necessário plantar ${sementes_necessarias.toFixed()} sementes a mais, equivalente a ${semente_total.toFixed()} sementes por hectare.<br>
+    Tería que comprar cerca de ${transformar_g_em_Kg.toFixed(2)} Kg de soja por hectare.<br>
+    Obtendo ${sacas_por_hectare} sacas por hectare.`
+
+    }
+</script>
