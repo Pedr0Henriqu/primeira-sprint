@@ -11,11 +11,15 @@
 <body>
     <h1 style="color: rgb(52, 177, 52);">Cálculo de semeadura da soja</h1>
 
-    <b>Digite a quantidade de plantas/ha:</b><br><input style="margin-bottom: 5px;" id="input_qtd_plantas">
-    (Recomendação de 300 mil plantas por hectare)<br>
-    <b>Digite espaçamento das fileiras/ha em (cm):</b><br><input style="margin-bottom: 5px;" id="input_espaco">
-    (Recomendação de 40 cm, 45 cm e 50 cm) <br>
-    <b>Digite a porcentagem de produtividade/ha:</b><br><input style="margin-bottom: 5px;" id="input_porcentagem"><br>
+    <b>Digite a quantidade de plantas/ha:</b><br><input placeholder="Insira aqui" style="margin-bottom: 5px;"
+        id="input_qtd_plantas">
+    (Recomendação de até 300 mil plantas por hectare)<br>
+    <b>Digite espaçamento entre fileiras:</b><br><input placeholder="Insira aqui" style="margin-bottom: 5px;"
+        id="input_espaço">
+    (Recomendação de 40 cm à 50 cm)<br>
+    <b>Digite a porcentagem de produtividade/ha:</b><br><input placeholder="Insira aqui" style="margin-bottom: 5px;"
+        id="input_porcentagem"><br>
+    <b>Digite a cotação da soja:</b><br><input placeholder="Insira aqui" id="input_cotação"><br>
     <button style="margin-left: 45px;margin-top: 10px; margin-bottom: 10px;"
         onclick="resultado()">resultado</button><br>
     <div id="exibir"></div>
@@ -26,24 +30,36 @@
 <script>
     function resultado() {
         var plantas = Number(input_qtd_plantas.value)
-        var espacamento = Number(input_espaco.value)
+        var espaçamento = Number(input_espaço.value)
         var produtividade = Number(input_porcentagem.value) //O quanto ele colhe do valor total de plantas, em porcentagem.
+        var cotação = Number(input_cotação.value)
 
-        var espacamento_em_cm = espacamento / 100
-        var plantas_metro_linear = plantas * espacamento_em_cm / 10000
-        var sementes_por_metro = plantas_metro_linear * 100 / produtividade
-        var semente_total = plantas * 100 / produtividade * 1.1 //calculo para descobrir quantas sementes será necessárias com essa taxa de 80% mais 10% por conta das pragas ou doenças
+        var espaçamento_em_cm = espaçamento / 100 //Dividir o valor por 100 para transfomar em cm para realizar os cáculos.
+        var plantas_metro_linear = plantas * espaçamento_em_cm / 10000 //Dividir por 10.000 metros quadrados, que equivale a 1 hectare.
+        var sementes_por_metro = plantas_metro_linear * 100 / produtividade //Multiplicar por 100 por que 1 metro equivale a 100 centimetros.
+        var semente_total = plantas * 100 / produtividade //n° de sementes * hectare / taxa produtivdade calculo para descobrir quantas sementes será necessárias com essa taxa de 80%.
         var sementes_necessarias = semente_total - plantas
-        var gramas = semente_total * 200 / 1000
-        var transformar_g_em_Kg = gramas / 1000
-        var vagens_por_hectare = plantas * 30
-        var sacas_por_hectare = vagens_por_hectare * 0.4024 / 1000 /60
+        var Kg = semente_total * 200 / 1000 / 1000 // 1000 grãos de soja pesa cerca de 140g a 220g por isso coloquei uma média de 200g, dividi por 1000 na 2 vez para transformar em kg.
+        var vagens_por_hectare = plantas * 30 // Multipliquei por 30, pois cada planta de soja gera 30 vagens.
+        var sacas_por_hectare = vagens_por_hectare * 0.4024 / 1000 / 60 // Os grãos de uma vagem tem em média 0,4024 gramas, dividi por 1000 para trasnformar em kg e dividi por 60Kg, pois cada saca pesa 60Kg.
+        var cotação_valor = cotação * sacas_por_hectare // Valor total de sacas por hectare.
+        var cotação_valor_BR = cotação_valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
+        var Kg_a_mais = sementes_necessarias * 200 / 1000 / 1000 // Mesmo processo da linha 42, para descobrir o peso de sementes a mais.
+        var vagens_sementes_a_mais = sementes_necessarias * 30 // Memso processo da linha 43, para descobrir o total de vagens das sementes a mais.
+        var sacas_por_hectare_sementes_a_mais = vagens_sementes_a_mais * 0.4024 / 1000 / 60 // Mesmo processo da linha 44, para descobrir sacas por hectares das sementes a mais.
+        var cotação_valor_sementes_a_mais = cotação * sacas_por_hectare_sementes_a_mais // Valor total de sacas por hectare das sementes a mais.
+        var cotação_valor_sementes_a_mais_BR = cotação_valor_sementes_a_mais.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
+        var perda_do_valor_em_porcentgem = cotação_valor_sementes_a_mais * 100 / cotação_valor // Regra de três para descobrir a porcentagem de perdas. 
 
-        exibir.innerHTML = `Com ${plantas.toLocaleString()} plantas/ha, e com espaçamento de ${espacamento} cm, seriam ${plantas_metro_linear.toFixed()} plantas/metro linear.<br>
+        exibir.innerHTML = `<h4>Produtores de soja, tenha um controle ideal sobre o seu plantio com a nossa calculadora e sensores de umidade e temperatura.</h4>
+        Com ${plantas.toLocaleString()} plantas/ha, e com espaçamento de ${espaçamento} cm, seriam ${plantas_metro_linear.toFixed()} plantas/metro linear.<br>
     Com ${produtividade}% de produtividade, deve distribuir ${sementes_por_metro.toFixed()} sementes/metro.<br>
     Será necessário plantar ${sementes_necessarias.toFixed()} sementes a mais, equivalente a ${semente_total.toFixed()} sementes por hectare.<br>
-    Tería que comprar cerca de ${transformar_g_em_Kg.toFixed(2)} Kg de soja por hectare.<br>
-    Obtendo ${sacas_por_hectare} sacas por hectare.`
-
+    Tería que comprar cerca de ${Kg.toFixed(2)} Kg de soja por hectare.<br>
+    Obtendo ${sacas_por_hectare.toFixed(2)} sacas por hectare, lucrando ${cotação_valor_BR} por hectare.<br>
+    Com esses ${Kg_a_mais.toFixed(2)} Kg a mais, você poderia estar plantando ${sacas_por_hectare_sementes_a_mais.toFixed(2)} sacas por hectare, lucrando ${cotação_valor_sementes_a_mais_BR}.<br>
+    Tendo uma perda de ${perda_do_valor_em_porcentgem.toFixed(1)}% no lucro por hectare.<br>
+    <h2 style="color: yellow">SojaTech</h2> 
+    Venha fazer parte dessa família, e veja o seu plantio lucrar.`
     }
 </script>

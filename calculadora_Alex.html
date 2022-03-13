@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora - Agronegocio</title>
+</head>
+<body>
+    <label>Quantos hectares você possui?</label>
+    <input id="qtd_hectares">
+    <button onclick="calcularSafra()">Calcular</button>
+    <div id="resultado"></div>
+</body>
+</html>
+
+<script>
+    function calcularSafra(){
+        
+        var quantidadeHectar = Number(qtd_hectares.value);
+        //fazer outro input pro usuario digitar o quanto de lucro ele teve na ultima safra
+        //fazer uma barra 100% e mostrar por exeplo: 80% verde (lucro) 20% vermelha(perda)
+
+        var sacasProduzidas = quantidadeHectar * 60; //60 = kgs por hectar
+        var valorSaca = quantidadeHectar * 204; //204 = valor de cada hectar colhido
+        
+        var sensorTotal = quantidadeHectar * 100; //cada hectar usa 100 sensores
+        var valorTotalSensores = sensorTotal * 59; // valor total de sensores usado
+        
+        resultado.innerHTML = `Com ${quantidadeHectar} Hectar, você vai produzir ${sacasProduzidas}KG de saca por hectar
+        e seu lucro será de R$${valorSaca} <br>
+        Sua areá de cultivo irá usar ${sensorTotal} sensores por Hectar, 
+        e o valor total de sensores utilizados é R$${valorTotalSensores}`
+
+    }
+</script>
