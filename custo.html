@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <b>Calculando o seu investimento</b><br>
+    <br>Quantidade de hectares plantados: <input id="hectares">
+    <br>Escolha o plano desejado: <br>
+    <br>Basico A (umidade) <br>
+    Basico B (temperatura) <br>
+    Premium (umidade e temperatura) <br>
+    <br> 
+    <button onclick="basico_a()">Calcular Básico A</button>
+    <button onclick="basico_b()">Calcular Básico B</button> 
+    <button onclick="premium()">Calcular Premium</button><br>
+    <br>
+    <div id="resultado"></div>
+</body>
+</html>
+
+<script>
+    function basico_a() {
+        var sensores= hectares.value * 200 * 10
+        var arduinos= hectares.value * 333 * 60
+        var custosensor = sensores + arduinos
+        var custosensor_formatado= custosensor.toLocaleString("pt-BR", {currency: "BRL"})
+        resultado.innerHTML= `Custo com os sensores: investimento único de <b> R$${custosensor_formatado}</b>
+                              <br>Custo mensal do acesso ao dados no site: <b>R$220,00</b>`
+    }
+    function basico_b() {
+        var sensores= hectares.value * 200 * 10
+        var arduinos= hectares.value * 333 * 60
+        var custosensor = sensores + arduinos
+        var custosensor_formatado= custosensor.toLocaleString("pt-BR", {currency: "BRL"})
+        resultado.innerHTML= `Custo com os sensores: investimento único de <b> R$${custosensor_formatado}</b>
+                              <br>Custo mensal do acesso ao dados no site: <b>R$180,00</b>`
+    }
+    function premium() {
+        var sensores= hectares.value * 200 * 10
+        var arduinos= hectares.value * 333 * 60
+        var custosensor = sensores + arduinos
+        var custosensor_formatado= custosensor.toLocaleString("pt-BR", {currency: "BRL"})
+        resultado.innerHTML= `Custo com os sensores: investimento único de <b>R$${custosensor_formatado}</b>
+                              <br>Custo mensal do acesso ao dados no site: <b>R$370,00</b>`
+    }
+</script>
