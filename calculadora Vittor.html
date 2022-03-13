@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Quantos hectares você quer plantar<input id="hectares" type="number"><brt>
+        <button onclick="calcular()">Calcular</button>
+        <div id="frase"></div>
+</body>
+</html>
+
+<script>
+    function calcular(){
+        var qtd_hec = Number(hectares.value)
+        var semente = 300000
+        var ard_por_hec = 50
+        preço_ard = 90
+        var qtd_ard = qtd_hec * ard_por_hec
+        preço_total = qtd_ard * preço_ard
+        var qtd_semente = qtd_hec * semente
+        frase.innerHTML = 
+        ` Com ${qtd_hec} hectares, você conseguirá plantar ${qtd_semente} sementes e, 
+        irá precisar instalar ${qtd_ard} sensores, para poder ter um controle da umidade e temperatura.<br>
+        O preço total dos sensores ficará em R$ ${preço_total}. `
+    }
+</script>
