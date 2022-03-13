@@ -28,8 +28,13 @@
         var safraanterior= Number(lucro_safra_anterior.value)
         var perda= safraanterior - (safraanterior * 0.74)
         var perda_formatada= perda.toLocaleString("pt-BR", {currency: "BRL"})
-        var lucro= saca * hect * 70
-        var lucro_formatado= lucro.toLocaleString("pt-BR", {style= 'currency: BRL"'})
+        var lucro= saca * hect * 70 
+        var lucrocento= lucroestimado / lucro * 100
+        var lucroatual= saca * hect * 55
+        var sensores= hect * 2500 * 10
+        var arduinos= hect * 417 * 70
+        var custo = sensores + arduinos
+        
         
 
         calculos.innerHTML=`Previsões para a produtividade da soja no Brasil:<br>
@@ -37,13 +42,16 @@
                            para a safra atual uma perda de até <b>26%</b> na produtividade média em relação à safra anterior. <br>
                            <br>Assim, você está sujeito a uma perda de até <b>R$${perda_formatada}</b>.
                            <br>
-                           <br>Com isso, o seu lucro estimado para esta safra é de R$até xpto
                            Você sabia que essa situação pode ser revertida caso o produtor possua um controle sobre os dados de umidade
                            e temperatura do local de plantio? 
                            <br> 
-                           É exatamente esse controle que a SojaTECH pode te oferecer!<br>
-                           <br> 
-                           Ao confiar na nossa solução, você poderá obter um lucro total de até <b>R$${lucro_formatado}</b> nesta safra.<br>
+                           É exatamente esse controle que a SojaTECH pode te oferecer.<br>
+
+                           <br> A previsão de produtividade média para esta safra é de 55 sacas por hectare. 
+                           Assim, o seu lucro atualmente previsto é de aproximadamente: ${lucroestimado}.
+
+                           Ao confiar na nossa solução, você investirá apenas ${custo} (sensores de umidade e acesso aos dados no site incluídos), 
+                           e poderá obter um lucro de até <b>R$${lucro}</b>, cerca de ${lucrocento} a mais. <br>
                            <br>
                            Cadastre-se e saiba mais!`
                            
